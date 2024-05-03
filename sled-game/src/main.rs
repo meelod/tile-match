@@ -4,9 +4,8 @@ use std::io::{self, Write};
 use std::thread::sleep;
 use std::time::Duration;
 
-const BOARD_SIZE: usize = 4;
-const TILE_PAIRS: usize = 8;
-const TILE_SIZE: usize = 100;
+const BOARD_SIZE: usize = 3;
+const TILE_PAIRS: usize = 6;
 
 fn main() {
     // Generate board with shuffled pairs of tiles
@@ -117,14 +116,11 @@ fn get_user_choice(prompt: &str, board: &[Tile]) -> usize {
         let mut input = String::new();
         io::stdin().read_line(&mut input).unwrap();
 
-        if input.trim() == "exit" {
-            return usize::MAX;
-        }
-
         match input.trim().parse::<usize>() {
             Ok(index) => {
                 if index < board.len() {
                     if !board[index].visible {
+                        println!("Selected tile value: {}", board[index].image);
                         return index;
                     } else {
                         println!("Tile already matched. Choose a different tile.");
